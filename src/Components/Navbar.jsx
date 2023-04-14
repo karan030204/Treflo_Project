@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { selected } from "./ListPizza";
 
 const Navbar = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -81,9 +82,9 @@ const Navbar = () => {
         </div>
       </header>
       <div
-        className={`fixed top-0 right-0 h-full w-2/3 md:w-2/4 z-50 bg-white shadow-lg transition-transform duration-300 transform ${
+        className={` Cart fixed top-0 right-0 h-full w-2/3 md:w-2/4 z-50 bg-white shadow-lg transition-transform duration-300 transform ${
           isCartOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        }` } id="cart"
         style={{
           backdropFilter: "blur(5px)",
           backgroundColor: "rgba(255, 255, 255, 0.8)",
@@ -106,28 +107,26 @@ const Navbar = () => {
 
         {/* //card */}
         <div class=" items-center justify-center m-5">
-          {selectedItems.map((item)=>(
+          {selected.map((item)=>(
           <div class="max-w-md md:max-w-2xl px-2 m-1">
             <div class="bg-white shadow-xl rounded-lg overflow-hidden md:flex">
               <div
                 class="bg-cover bg-bottom h-56 md:h-auto md:w-56"
                 
-              ><img src="Group1.png" alt="" /></div>
+              ><img src={item.img_url} alt="" /></div>
               <div>
                 <div class="p-4 md:p-5">
                   <p class="font-bold text-xl md:text-2xl">
                   </p>
                   <p class="text-gray-700 md:text-lg">
-                    Explore popular tourist destinations as well as hidden local
-                    favourites.
+                    {item.name}
                   </p>
                 </div>
                 <div class="p-4 md:p-5 bg-gray-100">
                   <div class="sm:flex sm:justify-between sm:items-center">
                     <div>
                       <div class="text-lg text-gray-700">
-                        <span class="text-gray-900 font-bold">17</span> per
-                        person*
+                        <span class="text-gray-900 font-bold"></span> {item.description}
                       </div>
                       <div class="flex items-center">
                         <div class="flex inline-flex -mx-px">
@@ -168,10 +167,14 @@ const Navbar = () => {
                           </svg>
                         </div>
                         <div class="text-gray-600 ml-2 text-sm md:text-base mt-1">
-                          28 reviews
+                          {item.rating}
                         </div>
                       </div>
                     </div>
+                    <div>{item.price}</div>
+                    <div>{item.size}</div>
+                    <div>{item.toppings}</div>
+                    <div>{item.isVeg}</div>
                     <button class="mt-3 sm:mt-0 py-2 px-5 md:py-3 md:px-6 bg-indigo-700 hover:bg-indigo-600 font-bold text-white md:text-lg rounded-lg shadow-md">
                       Book now
                     </button>

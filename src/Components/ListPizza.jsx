@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
 
+export let selected = [];
+
 function ListPizza() {
   const [pizzas, setPizzas] = useState([{}]);
-  const [isAddClicked, setisAddClicked] = useState(false);
+  const [isCustomiseClicked, setisCustomiseClicked] = useState(false);
   const [selectedPizza, setSelectedPizza] = useState([]);
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedToppings, setSelectedToppings] = useState([]);
   const [isClosedClicked, setisClosedClicked] = useState(false);
+
+  
+
 
   useEffect(() => {
     fetch("https://run.mocky.io/v3/ec196a02-aaf4-4c91-8f54-21e72f241b68")
@@ -15,12 +20,21 @@ function ListPizza() {
   }, []);
 
   const addItem = () => {
-    setisAddClicked(true);
+    setisCustomiseClicked(true);
   };
 
   const closePop = () =>{
     setisClosedClicked(true);
-    setisAddClicked(false);
+    setisCustomiseClicked(false);
+  }
+
+  const ItemsSelected = () =>{
+
+     selected = [...selected, { id : selectedPizza.id , name : selectedPizza.name, description : selectedPizza.description , img_url : selectedPizza.img_url, isVeg : selectedPizza.isVeg, price : selectedPizza.price, rating : selectedPizza.rating, size: selectedSize, toppings : selectedToppings}]
+    console.log(selected);
+    // console.log(selectedPizza);
+    // console.log(selectedSize);
+    // console.log(selectedToppings);
   }
 
   return (
@@ -61,13 +75,13 @@ function ListPizza() {
                 }}
               >
                 <div class="flex items-center justify-center">
-                  <span class="mr-2">Add</span>
+                  <span class="mr-2">Customise</span>
                   <span class="text-lg absolute top-0 right-0 mt-0 mr-2">
                     +
                   </span>
                 </div>
               </button>
-              {isAddClicked && (
+              {isCustomiseClicked && (
                 <div className="fixed top-1/2 left-1/2 transform-translate-x-1/2 -translate-y-1/2 sm:h-1/4 sm:w-1/4 md:h-2/4 md:w-1/4 bg-white">
                   <button
                     className="top-0 ml-10 text-3xl m-5 w-1.5"
@@ -141,7 +155,7 @@ function ListPizza() {
                     </div>
                     ))
                   </div>
-                  <button class="flex items-center justify-center text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg relative">
+                  <button class="flex items-center justify-center text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg relative" onClick={()=>ItemsSelected()}>
                     <div class="flex items-center justify-center">
                       <span class="mr-2">Add</span>
                       <span class="text-lg absolute top-0 right-0 mt-0 mr-2">
@@ -154,6 +168,7 @@ function ListPizza() {
             </div>
           </div>
         ))}
+        <div>{isCustomiseClicked && <a href="#cart"><button href="#cart" >View Cart</button></a>}</div>
       </section>
     </div>
   );

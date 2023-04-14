@@ -13,4 +13,6 @@ body.cart-open {
     display: none;
   }
 
-  
+.Cart{
+    overflow: auto;
+}
