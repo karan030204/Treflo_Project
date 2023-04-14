@@ -2,6 +2,11 @@ import { useState, useEffect } from "react";
 
 function ListPizza() {
   const [pizzas, setPizzas] = useState([{}]);
+  const [isAddClicked, setisAddClicked] = useState(false);
+  const [selectedPizza, setSelectedPizza] = useState([]);
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedToppings, setSelectedToppings] = useState([]);
+  const [isClosedClicked, setisClosedClicked] = useState(false);
 
   useEffect(() => {
     fetch("https://run.mocky.io/v3/ec196a02-aaf4-4c91-8f54-21e72f241b68")
@@ -10,58 +15,13 @@ function ListPizza() {
   }, []);
 
   const addItem = () => {
-    fetch('https://api.example.com/toppings')
-      .then((response) => response.json())
-      .then((data) => {
-        const toppings = data.toppings;
-  
-        let toppingsHTML = '';
-        toppings.forEach((topping) => {
-          toppingsHTML += `
-            <div>
-              <input type="checkbox" id="${topping.id}" name="toppings[]" value="${topping.id}">
-              <label for="${topping.id}">${topping.name}</label>
-            </div>
-          `;
-        });
-  
-        const popupHTML = `
-          <div class="popup">
-            <h2>Select size and toppings</h2>
-            <label for="size">Size:</label>
-            <select name="size" id="size">
-              <option value="small">Small</option>
-              <option value="medium">Medium</option>
-              <option value="large">Large</option>
-            </select>
-            <br><br>
-            <label for="toppings">Toppings:</label><br>
-            ${toppingsHTML}
-            <br><br>
-            <button id="submit">Submit</button>
-          </div>
-        `;
-  
-        const popup = $(popupHTML);
-        $('body').append(popup);
-  
-        const submitBtn = popup.find('#submit');
-        submitBtn.on('click', () => {
-          const size = popup.find('#size').val();
-          const selectedToppings = [];
-          popup.find('input[type="checkbox"]:checked').each(function () {
-            selectedToppings.push($(this).val());
-          });
-  
-          // Do something with the selected size and toppings here
-          console.log('Selected size:', size);
-          console.log('Selected toppings:', selectedToppings);
-  
-          // Close the popup
-          popup.remove();
-        });
-      });
+    setisAddClicked(true);
   };
+
+  const closePop = () =>{
+    setisClosedClicked(true);
+    setisAddClicked(false);
+  }
 
   return (
     <div class="flex justify-center">
@@ -94,7 +54,11 @@ function ListPizza() {
               </span>
               <button
                 class="flex items-center justify-center text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg relative"
-                onClick={() => {addItem()}}
+                onClick={() => {
+                  
+                  setSelectedPizza(pizza);
+                  addItem();
+                }}
               >
                 <div class="flex items-center justify-center">
                   <span class="mr-2">Add</span>
@@ -103,6 +67,90 @@ function ListPizza() {
                   </span>
                 </div>
               </button>
+              {isAddClicked && (
+                <div className="fixed top-1/2 left-1/2 transform-translate-x-1/2 -translate-y-1/2 sm:h-1/4 sm:w-1/4 md:h-2/4 md:w-1/4 bg-white">
+                  <button
+                    className="top-0 ml-10 text-3xl m-5 w-1.5"
+                    onClick={closePop}
+                  >
+                    x
+                  </button>
+                  <div className="text-lg font-bold text-center pt-4">
+                    {selectedPizza.name}
+                  </div>
+                  <div className="flex justify-center mt-4">
+                    <div className="mr-4">
+                      {selectedPizza.size.map((sizeOption) => (
+                        <div key={sizeOption.title}>
+                          <div className="mb-2 font-bold">
+                            {sizeOption.title}
+                          </div>
+                          {sizeOption.items.map((size) => (
+                            <div key={size.size}>
+                              <input
+                                type="radio"
+                                id={`${pizza.id}-${size.size}`}
+                                name={`${pizza.id}-size`}
+                                value={size.size}
+                                onChange={(e) => {
+                                  setSelectedSize(e.target.value);
+                                }}
+                              />
+                              <label htmlFor={`${pizza.id}-${size.size}`}>
+                                {size.size}
+                              </label>
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                    <div>
+                      {selectedPizza.toppings.map((toppingOption) => (
+                        <div key={toppingOption.title}>
+                          <div className="mb-2 font-bold">
+                            {toppingOption.title}
+                          </div>
+                          {toppingOption.items.map((topping) => (
+                            <div key={topping.name}>
+                              <input
+                                type="checkbox"
+                                id={`${pizza.id}-${topping.name}`}
+                                name={`${pizza.id}-topping`}
+                                value={topping.name}
+                                onChange={(e) => {
+                                  const isChecked = e.target.checked;
+                                  const toppingName = e.target.value;
+                                  setSelectedToppings((prevToppings) => {
+                                    if (isChecked) {
+                                      return [...prevToppings, toppingName];
+                                    } else {
+                                      return prevToppings.filter(
+                                        (t) => t !== toppingName
+                                      );
+                                    }
+                                  });
+                                }}
+                              />
+                              <label htmlFor={`${pizza.id}-${topping.name}`}>
+                                {topping.name}
+                              </label>
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                    ))
+                  </div>
+                  <button class="flex items-center justify-center text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg relative">
+                    <div class="flex items-center justify-center">
+                      <span class="mr-2">Add</span>
+                      <span class="text-lg absolute top-0 right-0 mt-0 mr-2">
+                        +
+                      </span>
+                    </div>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         ))}

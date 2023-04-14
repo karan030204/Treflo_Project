@@ -1,3 +1,16 @@
 body{
     background : linear-gradient(to right, rgb(255, 255, 255), rgb(202, 193, 193));
+
 }
+
+/* Blur the listing pizza page and disable navbar and other hero sections when the cart is open */
+body.cart-open {
+    overflow: hidden;
+  }
+  
+  #root.cart-open .navbar,
+  #root.cart-open .hero-section {
+    display: none;
+  }
+
+  
