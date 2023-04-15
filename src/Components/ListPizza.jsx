@@ -248,7 +248,6 @@ function ListPizza() {
 
   return (
     <>
-    <h1 id="pizza" className="flex ml:24 sm:ml-28 mb-24 sm:mb-16 text-3xl sm:text-5xl font-bold sm:font-semibold ">Our Menu.</h1>
       <div className="flex flex-wrap ml-28 gap-3">
         <ToggleButtonGroup
           color="primary"
@@ -302,6 +301,7 @@ function ListPizza() {
       <div class="flex justify-center items-center">
         <section
           className=" text-gray-600  body-font gap-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 "
+          id="pizza"
         >
           {pizzas.map((pizza, index) => (
             <div
@@ -358,11 +358,11 @@ function ListPizza() {
                   >
                     &#10005;
                   </button>
-                  <div className="text-2xl font-bold text-center pt-4">
+                  <div className="text-sm sm:text-2xl font-bold text-center pt-4">
                     {selectedPizza.name}
                   </div>
                   <div className="flex flex-wrap sm:w-4/5 justify-center sm:flex-no-wrap sm:justify-between mt-4 md:   ">
-                    <div className="ml-20 text-2xl sm:w-10/12 mb-6 sm:mb-0 md:mr-16 ">
+                    <div className="md:ml-20 text-sm sm:text-2xl sm:w-7/12 mb-6 sm:mb-0 md:mr-16 ">
                       {selectedPizza.size.map((sizeOption, index) => (
                         <div key={sizeOption.title} className="mb-4">
                           <div className="mb-2 font-bold text-center sm:text-left">
@@ -396,7 +396,7 @@ function ListPizza() {
                         </div>
                       ))}
                     </div>
-                    <div class="sm:flex sm:flex-wrap text-2xl mr-24 sm:ml-36 w-4/12 sm:w-10/12">
+                    <div class="sm:flex sm:flex-wrap text-sm sm:text-2xl   sm:ml-16 w-8/12 sm:w-10/12">
                       {selectedPizza.toppings.map((toppingOption, index) => (
                         <div
                           key={toppingOption.title}
