@@ -248,6 +248,8 @@ function ListPizza() {
 
   return (
     <>
+
+    <h1  id="pizza" className="flex  sm:flex text-5xl font-bold m-10 justify-center sm:justify-center items-center sm:items-center  ">Our Menu.</h1>
       <div className="flex flex-wrap ml-28 gap-3">
         <ToggleButtonGroup
           color="primary"
