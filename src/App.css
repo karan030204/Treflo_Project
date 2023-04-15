@@ -1,5 +1,5 @@
 body{
-    background : linear-gradient(to right, rgb(255, 255, 255), rgb(202, 193, 193));
+    background : linear-gradient(to right, rgb(255, 255, 255), rgb(187, 146, 146));
 
 }
 
@@ -15,4 +15,61 @@ body.cart-open {
 
 .Cart{
     overflow: auto;
+}
+
+.heading-title{
+  
+  Background : linear-gradient(to right, rgb(213, 95, 32), rgb(255, 208, 0));
+  -webkit-background-clip : text;
+  -webkit-text-fill-color : transparent;
+  
+  
+}
+
+
+
+
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  background-color: #0c0513;
+  background-image: url(./Components/pre.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#preloader-none {
+  opacity: 0;
+}
+
+#no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
+
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:  rgb(182, 122, 122);
+  border-radius: 12px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(222, 130, 235, 0.911);
+  border-radius: 12px;
 }
