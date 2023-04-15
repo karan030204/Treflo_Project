@@ -13,13 +13,10 @@ export const Navbar = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSelected, setSelected] = useState([]);
 
-  useEffect(()=>{
-      setSelected(selected);
-  },[selected])
+  useEffect(() => {
+    setSelected(selected);
+  }, [selected]);
 
-
-
-  
   // const [select, setSelected] = useState();
   // const [selectedItem, setSelectedItem] = useState([]);
   toggleCart = () => {
@@ -66,11 +63,11 @@ export const Navbar = () => {
             <a href="/" className="mr-5 text-1xl hover:text-gray-900">
               Home
             </a>
-            <a href="#ourServices " className="hover:text-gray-900 text-1xl mr-5">
-              Bottom
-            </a>
             <a href="#pizza" className="mr-5 text-1xl hover:text-gray-900">
               Pizzas
+            </a>
+            <a href="#footer " className="hover:text-gray-900 text-1xl mr-5">
+              Bottom
             </a>
             <button
               onClick={toggleCart}
@@ -78,7 +75,6 @@ export const Navbar = () => {
             >
               Cart
             </button>
-           
           </nav>
           <a className="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-gray-900 lg:items-center lg:justify-center mb-4 md:mb-0">
             <img src="smokeys.png" className="w-32 max-w-200" alt="" />
@@ -105,7 +101,7 @@ export const Navbar = () => {
         </div>
       </header>
       <div
-        className={`Cart fixed top-0 right-0 h-full w-2/3 md:w-2/4 z-50 bg-white shadow-lg transition-transform duration-300 transform ${
+        className={`Cart fixed top-0 right-0 h-full w-full md:w-2/4 z-50 bg-white shadow-lg transition-transform duration-300 transform ${
           isCartOpen ? "translate-x-0" : "translate-x-full"
         }`}
         id="cart"
@@ -114,7 +110,7 @@ export const Navbar = () => {
           backgroundColor: "rgba(255, 255, 255, 0.8)",
         }}
       >
-        <div className="border-b-2 m-5 flex gap-48">
+        <div className="border-b-2 m-5 flex flex-col sm:flex-row gap-4 sm:gap-48">
           <button
             className="top-0 ml-10 text-3xl m-5 w-1.5"
             onClick={toggleCart}
@@ -122,7 +118,7 @@ export const Navbar = () => {
             x
           </button>
 
-          <div className="heading flex justify-center items-center  ">
+          <div className="heading flex justify-center items-center">
             <h1 className="text-lg sm:text-1xl md:text-3xl font-semibold">
               YOUR CART
             </h1>

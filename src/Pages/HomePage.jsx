@@ -11,7 +11,6 @@ const HomePage = () => {
       
       <Navbar />
       <Hero/>
-      <OurServices/>
       <ListPizza/>
 
 

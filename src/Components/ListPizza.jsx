@@ -46,12 +46,13 @@ function ListPizza() {
 
   //For Showing in Frontend
   useEffect(() => {
-
-    setIsLoading(true)
+    setIsLoading(true);
     fetch("https://run.mocky.io/v3/ec196a02-aaf4-4c91-8f54-21e72f241b68")
       .then((response) => response.json())
-      .then((data) => {setPizzas(data)
-      setIsLoading(false)});
+      .then((data) => {
+        setPizzas(data);
+        setIsLoading(false);
+      });
   }, []);
 
   //For Sorting Purpose
@@ -64,7 +65,6 @@ function ListPizza() {
   useEffect(() => {
     setSelectedSize("Regular");
   }, []);
-
 
   useEffect(() => {
     // This code block is executed when the component is mounted and
@@ -141,13 +141,12 @@ function ListPizza() {
     }
   };
   const handleDecreaseQty = () => {
-    if(Qty > 1 ){
-    setQty(Qty - 1);
-  }
+    if (Qty > 1) {
+      setQty(Qty - 1);
+    }
   };
 
   const handleIncreaseQty = () => {
-    
     setQty(Qty + 1);
   };
 
@@ -249,9 +248,8 @@ function ListPizza() {
 
   return (
     <>
-
-      <div className="btns flex m-5 ml-28 gap-3">
-
+    <h1 id="pizza" className="flex ml:24 sm:ml-28 mb-24 sm:mb-16 text-3xl sm:text-5xl font-bold sm:font-semibold ">Our Menu.</h1>
+      <div className="flex flex-wrap ml-28 gap-3">
         <ToggleButtonGroup
           color="primary"
           value={alignment}
@@ -259,34 +257,36 @@ function ListPizza() {
           onChange={handleChange}
           aria-label="Platform"
           className="gap-3"
+          size="sm"
+          style={{ marginBottom: "1rem" }}
         >
           <ToggleButton
             value="web"
             onClick={() => toggleVeg()}
-            style={{ color: "black" }}
+            className="text-black"
           >
             🌿 Veg
           </ToggleButton>
           <ToggleButton
             value="android"
             onClick={() => toggleNonVeg()}
-            style={{ color: "black" }}
+            className="text-black"
           >
             🍖 NonVeg
           </ToggleButton>
         </ToggleButtonGroup>
-        <div className="border-2 flex justify-center items-center">
-          <Button
+        <div className="flex justify-center items-center">
+          <button
             id="basic-button"
             aria-controls={Open ? "basic-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={Open ? "true" : undefined}
             onClick={handleclick}
-            className=" border-2"
-            style={{ color: "black" }}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-3 mb-3 px-4 rounded-md"
+            style={{ minWidth: "5rem", maxWidth: "100%" }}
           >
             Sort by
-          </Button>
+          </button>
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}
@@ -298,10 +298,10 @@ function ListPizza() {
           </Menu>
         </div>
       </div>
+
       <div class="flex justify-center items-center">
         <section
           className=" text-gray-600  body-font gap-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 "
-          id="pizza"
         >
           {pizzas.map((pizza, index) => (
             <div
@@ -351,25 +351,28 @@ function ListPizza() {
                 </div>
               </list>
               {isCustomiseClicked && (
-                <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:h-1/4 sm:w-1/4 md:h-2/4 md:w-1/4 bg-white shadow-lg rounded-lg">
+                <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:w-11/12 md:w-4/12 lg:w-5/12 bg-white shadow-lg rounded-lg">
                   <button
                     className="absolute top-0 right-0 m-4 text-2xl font-bold text-gray-600 hover:text-gray-800 focus:outline-none"
                     onClick={closePop}
                   >
                     &#10005;
                   </button>
-                  <div className="text-lg font-bold text-center pt-4">
+                  <div className="text-2xl font-bold text-center pt-4">
                     {selectedPizza.name}
                   </div>
-                  <div className="flex justify-center mt-4">
-                    <div className="mr-8">
+                  <div className="flex flex-wrap sm:w-4/5 justify-center sm:flex-no-wrap sm:justify-between mt-4 md:   ">
+                    <div className="ml-20 text-2xl sm:w-10/12 mb-6 sm:mb-0 md:mr-16 ">
                       {selectedPizza.size.map((sizeOption, index) => (
-                        <div key={sizeOption.title}>
-                          <div className="mb-2 font-bold">
+                        <div key={sizeOption.title} className="mb-4">
+                          <div className="mb-2 font-bold text-center sm:text-left">
                             {sizeOption.title}
                           </div>
                           {sizeOption.items.map((size, index) => (
-                            <div key={size.size}>
+                            <div
+                              key={size.size}
+                              className="flex items-center mb-2"
+                            >
                               <input
                                 defaultChecked={size.size === "Regular"}
                                 type="radio"
@@ -393,10 +396,13 @@ function ListPizza() {
                         </div>
                       ))}
                     </div>
-                    <div>
+                    <div class="sm:flex sm:flex-wrap text-2xl mr-24 sm:ml-36 w-4/12 sm:w-10/12">
                       {selectedPizza.toppings.map((toppingOption, index) => (
-                        <div key={toppingOption.title}>
-                          <div className="mb-2 font-bold">
+                        <div
+                          key={toppingOption.title}
+                          className="mb-4 sm:w-10/12 sm:ml-5 "
+                        >
+                          <div className="mb-2 font-bold text-center sm:text-left">
                             {toppingOption.title}
                           </div>
                           {toppingOption.items.map((topping, index) => (
@@ -422,7 +428,7 @@ function ListPizza() {
                                     }
                                   });
                                 }}
-                                className="mr-2 appearance-none border border-gray-300  w-4 h-4 checked:bg-red-500 checked:border-transparent focus:outline-none"
+                                className="mr-2 appearance-none border border-gray-300 w-4 h-4 checked:bg-red-500 checked:border-transparent focus:outline-none"
                               />
                               <label
                                 htmlFor={`${pizza.id}-${topping.name}`}
@@ -434,33 +440,28 @@ function ListPizza() {
                           ))}
                         </div>
                       ))}
-                      <div class="qty absolute flex items-center text-2xl py-1 p-3 m-5 ml-12  border rounded cursor-pointer">
-                        <div
-                          class="minusSign flex justify-center items-center w-8 h-8  hover:bg-gray-200 rounded-l focus:outline-none"
-                          onClick={() => handleDecreaseQty()}
-                        >
+                    </div>
+                    <div class="flex flex-wrap items-center justify-center sm:justify-start">
+                      <div class="qty  flex items-center text-base sm:text-2xl py-1 px-2 sm:px-3 m-2 sm:m-5 ml-2 sm:ml-12 border rounded cursor-pointer">
+                        <div class="minusSign flex justify-center items-center w-6 h-6 sm:w-8 sm:h-8 hover:bg-gray-200 rounded-l focus:outline-none" onClick={handleDecreaseQty}>
                           -
                         </div>
-                        <div class="numberSign mx-2 font-medium">{Qty}</div>
-                        <div
-                          class="plusSign flex justify-center items-center w-8 h-8  hover:bg-gray-200 rounded-r focus:outline-none"
-                          onClick={() => handleIncreaseQty()}
-                        >
+                        <div class="numberSign mx-1 sm:mx-2 font-medium">
+                          {Qty}
+                        </div>
+                        <div class="plusSign flex justify-center items-center w-6 h-6 sm:w-8 sm:h-8 hover:bg-gray-200 rounded-r focus:outline-none" onClick={handleIncreaseQty}>
                           +
                         </div>
                       </div>
+                      <button
+                        class="flex items-center mt-1 justify-center text-white bg-indigo-500 border-0 py-2 px-6 sm:px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg relative"
+                        onClick={() => ItemsSelected(index)}
+                        style={{ backgroundColor: "red", border: "1px" }}
+                      >
+                        <span class="mr-2">Add to Cart</span>
+                      </button>
                     </div>
-                    ))
                   </div>
-                  <button
-                    className="flex items-center ml-5 mt-5   justify-center text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg relative"
-                    onClick={() => ItemsSelected(index)}
-                    style={{ backgroundColor: "red", border: "1px" }}
-                  >
-                    <div class="flex items-center pl-1 pr-1 justify-center">
-                      <span class="mr-2">Add to Cart</span>
-                    </div>
-                  </button>
                 </div>
               )}
             </div>
