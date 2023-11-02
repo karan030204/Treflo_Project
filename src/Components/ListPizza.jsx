@@ -16,12 +16,13 @@ import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import PreLoader from "./PreLoader";
+import pizzas_ from "../data";
 
 export let selected = [];
 
 function ListPizza() {
   const [open, setOpen] = React.useState(false);
-  const [pizzas, setPizzas] = useState([{}]);
+  const [pizzas, setPizzas] = useState([{pizzas_}]);
   const [Newpizzas, setNewPizzas] = useState([{}]);
   const [isCustomiseClicked, setisCustomiseClicked] = useState(false);
   const [selectedPizza, setSelectedPizza] = useState([]);
@@ -40,6 +41,7 @@ function ListPizza() {
     setAlignment(newAlignment);
   };
 
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   // const [selectedQty, setSelectedQty] = useState("");
@@ -47,19 +49,23 @@ function ListPizza() {
   //For Showing in Frontend
   useEffect(() => {
     setIsLoading(true);
-    fetch("https://run.mocky.io/v3/ec196a02-aaf4-4c91-8f54-21e72f241b68")
-      .then((response) => response.json())
-      .then((data) => {
-        setPizzas(data);
-        setIsLoading(false);
-      });
+    setPizzas(pizzas_)
+    const timer = setTimeout(()=>{
+      setIsLoading(false)
+    },3000)
+    // fetch("https://run.mocky.io/v3/ec196a02-aaf4-4c91-8f54-21e72f241b68")
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setPizzas(data);
+    //     setIsLoading(false);
+    //   });
   }, []);
 
   //For Sorting Purpose
   useEffect(() => {
-    fetch("https://run.mocky.io/v3/ec196a02-aaf4-4c91-8f54-21e72f241b68")
-      .then((response) => response.json())
-      .then((data) => setNewPizzas(data));
+    // fetch("https://run.mocky.io/v3/ec196a02-aaf4-4c91-8f54-21e72f241b68")
+    //   .then((response) => response.json())
+    //   .then((data) => setNewPizzas(data));
   }, []);
 
   useEffect(() => {
